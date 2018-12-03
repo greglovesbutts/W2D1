@@ -1,0 +1,1 @@
+class FriendsError < StandardError ;end
