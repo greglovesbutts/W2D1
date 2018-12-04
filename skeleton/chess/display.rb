@@ -1,3 +1,4 @@
+require "byebug"
 require_relative 'board'
 require_relative 'cursor'
 require 'colorize'
@@ -11,7 +12,9 @@ class Display
     end 
 
     def render 
+        
         cursor_pos = self.cursor.cursor_pos
+        # debugger
         board = self.board.board
         all_rows = []
         board.each.with_index do |row, i1|
@@ -30,9 +33,23 @@ class Display
         end
         return nil
     end
-
 end 
 
 board = Board.new
 display = Display.new(board)
-p display.render
+
+# def pseudo_cursor(display)
+#    i = 0
+#    while i < 5
+#     system("clear")
+#     display.render
+#     display.cursor.get_input
+#     i+=1
+#    end
+# end
+
+# pseudo_cursor(display)
+display.render
+display.board.move_piece([0,0],[4,0])
+puts "______________"
+display.render

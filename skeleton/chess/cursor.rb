@@ -76,7 +76,8 @@ class Cursor
   end
 
   def handle_key(key)
-    case KEYMAP[key]
+    # debugger
+    case key
     when :return || :space 
         self.cursor_pos 
     when :left 
@@ -98,8 +99,9 @@ class Cursor
 
   def update_pos(diff)
     end_pos = self.cursor_pos.map.with_index { |ele, i| ele + diff[i] }
+    # debugger
     if self.board.valid_pos?(end_pos)
-        self.cursor_pos = end_pos 
+        @cursor_pos = end_pos 
     end
   end
 end
