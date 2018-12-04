@@ -1,0 +1,1 @@
+class EmptyArgumentError < StandardError ;end 
