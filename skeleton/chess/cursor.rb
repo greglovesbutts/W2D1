@@ -1,5 +1,4 @@
 require "io/console"
-require_relative 'display'
 
 KEYMAP = {
   " " => :space,
@@ -77,6 +76,20 @@ class Cursor
   end
 
   def handle_key(key)
+    case KEYMAP[key]
+    when :return || :space 
+        self.cursor_pos 
+    when :left 
+        update_pos(MOVES[:left])
+    when :right 
+        update_pos(MOVES[:right])
+    when :up 
+        update_pos(MOVES[:up])
+    when :down
+        update_pos(MOVES[:down])
+    when :ctrl_c
+        Process.exit(0)
+    end 
     #STDIN is doing gets stuff
     #we're displaying the cursor according to the input given
     #return or space returns that cursor positon
@@ -84,5 +97,9 @@ class Cursor
   end
 
   def update_pos(diff)
+    end_pos = self.cursor_pos.map.with_index { |ele, i| ele + diff[i] }
+    if self.board.valid_pos?(end_pos)
+        self.cursor_pos = end_pos 
+    end
   end
 end

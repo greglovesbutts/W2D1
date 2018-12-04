@@ -3,4 +3,8 @@ class Piece
     def initialize 
         @piece
     end
+
+    def to_s
+        "P"
+    end
 end

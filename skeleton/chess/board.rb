@@ -1,15 +1,17 @@
 require_relative "piece"
+require_relative "null_piece"
 class Board 
     attr_reader :board
 
     def initialize 
-        @board = Array.new(8) { Array.new(8) }
+        @board = Array.new(8) { Array.new(8, NullPiece.instance) }
         first_two_rows = [0,1,6,7]
         @board.each_index do |i| 
             if first_two_rows.include?(i)
-                @board[i] = @board[i].map { |space| Piece.new} 
+                @board[i] = @board[i].map! { |space| Piece.new} 
             end
         end  
+        return nil
     end
     def move_piece(start_pos, end_pos)
         start_row, start_col = start_pos
@@ -25,7 +27,15 @@ class Board
         x, y = pos
         self.board[x][y] 
     end 
+    def []=(pos, val)
+         x, y = pos
+        self.board[x][y] = val
+    end 
+
+    def valid_pos?(pos)
+       pos.all?{|place| place.between?(0,7)}
+    end 
 end 
 
-# board = Board.new
-# p board.board
+board = Board.new
+p board.board
